@@ -26,12 +26,18 @@ module.exports = function(app, ls, passport){
   });
 
   app.get('/profile', function(req, res){   // <-- logined page
-    res.render('C:\\Users\\user\\Desktop\\gcloud\\view\\component\\profile.ejs', { user: ls.get('user') });
+    res.render('C:\\Users\\user\\Desktop\\gcloud\\view\\component\\profile.ejs', { google_user: ls.get('google_user'), fb_user: ls.get('fb_user') });
   });
 
-  // login route
+  // google login route
   app.get('/oauth', passport.authenticate('google_token', {scope : ['profile', 'email']}));
 
-  // login successfully then callback to the route
+  // google login successfully then callback to the route
   app.get('/oauth/callback', passport.authenticate('google_token', {successRedirect: '/profile', failureRedirect: '/'}));
+
+  // fb login route
+  app.get('/fb', passport.authenticate('fb_token', { authType: 'rerequest', scope: ['user_friends', 'manage_pages'] }));
+
+  // fb login successfully then callback to the route
+  app.get('/fb/callback', passport.authenticate('fb_token', {successRedirect: '/profile', failureRedirect: '/'}));
 }
