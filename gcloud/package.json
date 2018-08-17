@@ -1,0 +1,19 @@
+{
+  "name": "gcloud",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "local-storage": "^1.4.2",
+    "passport": "^0.4.0",
+    "passport-google-oauth2": "^0.1.6"
+  }
+}
