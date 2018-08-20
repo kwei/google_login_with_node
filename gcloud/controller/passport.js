@@ -35,11 +35,13 @@ module.exports = function(ls, passport){
     console.log(textFg.FgGreen, '\n[ user id ] : ', textStyle.Reset, profile.id);
     console.log(textFg.FgGreen, '\n[ user name ] : ', textStyle.Reset, profile.displayName);
     console.log(textFg.FgGreen, '\n[ user email ] : ', textStyle.Reset, profile.emails[0].value);
+    console.log(textFg.FgGreen, '\n[ user photo ] : ', textStyle.Reset, profile.photos[0].value);
     console.log('');
     var user_id = profile.id;
     var user_name = profile.displayName;
     var user_email = profile.emails[0].value;
-    var user = new Person(user_id, accessToken, user_name, user_email);   // <-- form an object
+    var user_photo = profile.photos[0].value;
+    var user = new Person(user_id, accessToken, user_name, user_email, user_photo);   // <-- form an object
     ls.set('google_user', user);   // <-- set the user info to the local storage
     return done(null, user);
   }));
@@ -49,7 +51,7 @@ module.exports = function(ls, passport){
   // ====================================
   passport.use('fb_token', new FacebookStrategy({
     clientID:'717021385300886',   // <-- change it to your clientID
-    clientSecret:'eb858e0207c491d435aad8932fae4caf',                                                // <-- change it to your clientSecret
+    clientSecret:'eb858e0207c491d435aad8932fae4caf',                                      // <-- change it to your clientSecret
     callbackURL:'http://localhost:3000/fb/callback',                                      // <-- change it to your callbackURL
     profileFields: ['id', 'displayName', 'photos', 'email']
   }, async(accessToken, refreshToken, profile, done) => {
@@ -60,7 +62,8 @@ module.exports = function(ls, passport){
     console.log('');
     var user_id = profile.id;
     var user_name = profile.displayName;
-    var user = new Person(user_id, accessToken, user_name);   // <-- form an object
+    var user_photo = profile.photos[0].value;
+    var user = new Person(user_id, accessToken, user_name, 'none', user_photo);   // <-- form an object
     ls.set('fb_user', user);   // <-- set the user info to the local storage
     return done(null, user);
   }));

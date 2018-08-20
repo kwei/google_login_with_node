@@ -1,0 +1,121 @@
+<html>
+
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <head>
+    <title> Login Testing </title>
+  </head>
+
+  <body g-app="myApp" ng-controller="myCtrl">
+    <div class="jumbotron text-center">
+      <h1 id="title">Testing for Google Plus OAuth 2.0 with Node JS
+         to implement a login web page.</h1></br>
+      <%if(google_user == null && fb_user == null){ %>
+        <p id="wel-Info">Login or Register with:</p>
+        <div id="btn-login">
+          <a id="btn-auth" href="/oauth" class="btn btn-danger"><span class="fa fa-google-plus"></span> Google</a>
+          <a id="btn-fb" href="/fb" class="btn btn-primary"><span class="fa fa-facebook-square"></span> Facebook</a>
+        </div>
+      <% }else{%>
+        <p>Login successfully!</p>
+        <!-- https://www.w3schools.com/bootstrap/bootstrap_buttons.asp -->
+        <!-- https://fontawesome.com -->
+        <a href="/" class="btn btn-info"><span class="fa fa-sign-out"></span> SignOut</a>
+      <%}%>
+    </div>
+
+    <%if(google_user != null){ %>
+      <div class="well">
+        <h3 class="text-danger"><span class="fa fa-google-plus"></span> Google</h3>
+        <table class="table table-striped">
+          <img src=<%= google_user.opt %> />
+          <thead>
+            <tr>
+              <th>User Info</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>user id</strong></td>
+              <td><%= google_user.user_id %></td>
+            </tr>
+            <tr>
+              <td><strong>user name</strong></td>
+              <td><%= google_user.user_name %></td>
+            </tr>
+            <tr>
+              <td><strong>user email</strong></td>
+              <td><%= google_user.user_email %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <% }%>
+
+    <%if(fb_user != null){ %>
+      <div class="well">
+        <h3 class="text-primary"><span class="fa fa-facebook-square"></span> Facebook</h3>
+        <table class="table table-striped">
+          <img src=<%= fb_user.opt %> />
+          <thead>
+            <tr>
+              <th>User Info</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>user name</strong></td>
+              <td><%= fb_user.user_name %></td>
+            </tr>
+            <tr>
+              <td><strong>user id</strong></td>
+              <td><%= fb_user.user_id %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <% }%>
+
+    <script>
+    </script>
+  </body>
+
+  <script>
+    var fb;
+    window.fbAsyncInit = function(){
+      FB.init({
+        appId: '717021385300886',
+        cookie: false,
+        xfbml: true,
+        version: 'v3.1'
+      });
+      // FB.AppEvents.logPageView();
+      fb = FB;
+    };
+    function fb_login(){
+      fb.login(function(response) {
+        if (response.status === 'connected') {
+          // Logged into your app and Facebook.
+          console.log(response);
+        } else {
+          // The person is not logged into this app or we are unable to tell.
+        }
+      });
+    }
+
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = 'https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v3.1&appId=717021385300886&autoLogAppEvents=1';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+  <div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="login_with"
+    data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
+  </br></br>
+
+</html>

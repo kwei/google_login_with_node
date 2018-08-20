@@ -1,0 +1,81 @@
+<html>
+
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+  <head>
+    <title> Login Testing </title>
+  </head>
+
+  <body>
+    <div class="jumbotron text-center">
+      <div class="card">
+        <%if(google_user != null){ %>
+          <h1><%= google_user.user_name %></h1>
+        <% }%>
+        <%if(fb_user != null){ %>
+          <h1><%= fb_user.user_name %></h1>
+        <% }%>
+        <p class="title">About me</p>
+        <p>Come from</p>
+        <a href="#"><i class="fa fa-twitter"></i> Twitter&nbsp;&nbsp;</a>
+        <a href="#"><i class="fa fa-comments"></i> WeChat&nbsp;&nbsp;</a>
+        <a href="#"><i class="fa fa-facebook"></i> Facebook&nbsp;&nbsp;</a>
+        <a href="#"><i class="fa fa-google-plus"></i> Google&nbsp;&nbsp;</a></br>
+        <a href="/"><span class="fa fa-sign-out"></span> SignOut&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        <a href="#"><i class="fa fa-edit"></i> Edit</a>
+      </div>
+    </div>
+    <%if(google_user != null){ %>
+      <div class="well">
+        <h3 class="text-danger"><span class="fa fa-google-plus"></span> Google</h3>
+        <table class="table table-striped">
+          <img src=<%= google_user.opt %> />
+          <thead>
+            <tr>
+              <th>User Info</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>user id</strong></td>
+              <td><%= google_user.user_id %></td>
+            </tr>
+            <tr>
+              <td><strong>user name</strong></td>
+              <td><%= google_user.user_name %></td>
+            </tr>
+            <tr>
+              <td><strong>user email</strong></td>
+              <td><%= google_user.user_email %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <% }%>
+
+    <%if(fb_user != null){ %>
+      <div class="well">
+        <h3 class="text-primary"><span class="fa fa-facebook-square"></span> Facebook</h3>
+        <table class="table table-striped">
+          <img src=<%= fb_user.opt %> />
+          <thead>
+            <tr>
+              <th>User Info</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>user name</strong></td>
+              <td><%= fb_user.user_name %></td>
+            </tr>
+            <tr>
+              <td><strong>user id</strong></td>
+              <td><%= fb_user.user_id %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <% }%>
+  </body>
+
+</html>
